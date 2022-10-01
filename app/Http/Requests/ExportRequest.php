@@ -7,6 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class ExportRequest extends FormRequest
 {
+    protected $stopOnFirstFailure = true;
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -25,7 +26,7 @@ class ExportRequest extends FormRequest
      */
     public function rules()
     {
-        
+
         return [
             'date' => 'required',
             'qty' => 'required'
@@ -56,5 +57,20 @@ class ExportRequest extends FormRequest
         ];
     }
 
- 
+    public function withValidator($validator)
+    {
+        if (!$validator->fails()) {
+            $validator->after(function ($validator) {
+                if ($request = $this->input()) {
+                    $q = Item::where('id', $request["item_id"])->first();
+
+                    if ($request["qty"] > $q->qty || $request["qty"] < $q->min) {
+                        return trans('backpack::base.no_qty');
+                    } else {
+                        $q->update(['qty' => $q->qty - $request["qty"]]);
+                    }
+                }
+            });
+        }
+    }
 }

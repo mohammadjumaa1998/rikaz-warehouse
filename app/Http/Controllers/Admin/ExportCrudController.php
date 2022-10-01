@@ -82,14 +82,7 @@ class ExportCrudController extends CrudController
     protected function setupCreateOperation()
     {
         CRUD::setValidation(ExportRequest::class);
-        if (!$this->crud->getRequest()) {
-            $q = Item::where('id', $this->input('item_id'))->first();
-            if ($this->input('qty') > $q->qty || $this->input('qty') < $q->min) {
-                return trans('backpack::base.no_qty');
-            } else {
-                $q->update(['qty' => $q->qty - $this->input('qty')]);
-            }
-        }
+  
         $this->crud->addField([
             'label'     => "Customer",
             'type'      => 'select',
