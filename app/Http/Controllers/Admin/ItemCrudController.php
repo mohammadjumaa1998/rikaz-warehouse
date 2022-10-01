@@ -30,19 +30,19 @@ class ItemCrudController extends CrudController
         CRUD::setModel(\App\Models\Item::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/item');
         CRUD::setEntityNameStrings('item', 'items');
-        // if (!backpack_user()->can('mange item')) {
-        //     CRUD::denyAccess('create');
-        // }
-        // if (!backpack_user()->can('mange item')) {
-        //     CRUD::denyAccess('update');
-        // }
-        // if (!backpack_user()->can('mange item')) {
-        //     CRUD::denyAccess('delete');
-        // }
+        if (!backpack_user()->can('mange item')) {
+            CRUD::denyAccess('create');
+        }
+        if (!backpack_user()->can('mange item')) {
+            CRUD::denyAccess('update');
+        }
+        if (!backpack_user()->can('mange item')) {
+            CRUD::denyAccess('delete');
+        }
 
-        // if (!backpack_user()->can('change')) {
-        //     CRUD::denyAccess('change');
-        // }
+        if (!backpack_user()->can('change')) {
+            CRUD::denyAccess('change');
+        }
     }
 
     /**
