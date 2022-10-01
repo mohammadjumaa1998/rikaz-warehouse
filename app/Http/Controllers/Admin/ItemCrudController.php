@@ -19,7 +19,6 @@ class ItemCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\ChangeOperation;
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -31,18 +30,19 @@ class ItemCrudController extends CrudController
         CRUD::setModel(\App\Models\Item::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/item');
         CRUD::setEntityNameStrings('item', 'items');
-        if (!backpack_user()->can('mange item')) {
-            CRUD::denyAccess('create');
-        }
-        if (!backpack_user()->can('mange item')) {
-            CRUD::denyAccess('update');
-        }
-        if (!backpack_user()->can('mange item')) {
-            CRUD::denyAccess('delete');
-        }
-        if (!backpack_user()->can('change')) {
-            CRUD::denyAccess('change');
-        }
+        // if (!backpack_user()->can('mange item')) {
+        //     CRUD::denyAccess('create');
+        // }
+        // if (!backpack_user()->can('mange item')) {
+        //     CRUD::denyAccess('update');
+        // }
+        // if (!backpack_user()->can('mange item')) {
+        //     CRUD::denyAccess('delete');
+        // }
+
+        // if (!backpack_user()->can('change')) {
+        //     CRUD::denyAccess('change');
+        // }
     }
 
     /**
@@ -59,16 +59,6 @@ class ItemCrudController extends CrudController
         CRUD::column('qty');
         CRUD::column('active');
         CRUD::column('image')->type('image');
-        // $this->crud->addColumn([
-        //     'name' => 'image', // The db column name
-        //     'label' => "Image", // Table column heading
-        //     'type' => 'image',
-      
-        //     'disks' => 'uploads', 
-      
-           
-        //   ]);
-        // CRUD::column('group_id');
         $this->crud->addColumn([
             'label' => "Group", // Table column heading
             'type' => "select",
@@ -78,14 +68,15 @@ class ItemCrudController extends CrudController
             'model' => "App\Models\Group", // foreign key model
          ]);
          
-     
+        //  $this->crud->removeButton('change');
+// $this->crud->addButton('line', 'change', 'view', 'crud::buttons.change', 'end');
+// CRUD::button('change')->view('crud::buttons.change');
+        //  if (backpack_user()->can('change')) {
+        //     $this->crud->addButton('line', 'change',  'view', 'vendor.backpack.crud.buttons.change', 'end');
+        // }
+        $this->crud->addButton('line', 'change','view', 'crud::buttons.change');
 
-
-        /**
-         * Columns can be defined using the fluent syntax or array syntax:
-         * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
-         */
+        
     }
 
     /**
@@ -96,10 +87,7 @@ class ItemCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        // if (!backpack_user()->can('mange item')) {
-        //     \Alert::error(trans('backpack::crud.update_error'))->flash();
-        //     return redirect()->back();
-        // };
+      
         CRUD::setValidation(ItemRequest::class);
 
         CRUD::field('name');
@@ -138,5 +126,22 @@ class ItemCrudController extends CrudController
         $this->setupCreateOperation();
     }
 
- 
+    public function change($id)
+    {
+     
+
+        // get entry ID from Request (makes sure its the last ID for nested resources)
+        $id = $this->crud->getCurrentEntryId() ?? $id;
+
+        $item = $this->crud->getModel()->findOrFail($id);
+
+        $item->update([
+            'active' => !$item->active
+        ]);
+        \Alert::success(trans('backpack::crud.update_success'))->flash();
+
+        return back();
+    }
+
+   
 }
