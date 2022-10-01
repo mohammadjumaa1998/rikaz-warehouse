@@ -1,0 +1,46 @@
+models:
+  Group:
+    name: string
+    relationships:
+      belongsTo: Item
+
+  Item:
+    name: string
+    code: string
+    min: integer
+    qty: integer
+    active: boolean default:1
+    image: string
+    group_id: id foreign:groups
+    timestamps: true
+    relationships:
+      hasMany: Group
+
+  Customer:
+    name: string
+    phone: string
+    email: string:100 nullable index
+    block: boolean default:0
+    timestamps: true
+
+
+  Supplier:
+    name: string
+    phone: string
+    email: string:100 nullable index
+    block: boolean default:0
+    timestamps: true
+
+
+  Export:
+    item_id: id foreign:items
+    customer_id: id foreign:customers
+    timestamps: true
+
+
+  Emport:
+    item_id: id foreign:items
+    supplier_id: id foreign:suppliers
+    timestamps: true
+
+seeders: Group,Item,Customer,Supplier,Export,Emport

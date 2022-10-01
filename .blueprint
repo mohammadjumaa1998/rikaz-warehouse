@@ -1,0 +1,32 @@
+created:
+    - database/factories/GroupFactory.php
+    - database/factories/ItemFactory.php
+    - database/factories/CustomerFactory.php
+    - database/factories/SupplierFactory.php
+    - database/factories/ExportFactory.php
+    - database/factories/EmportFactory.php
+    - database/migrations/2022_09_29_225311_create_groups_table.php
+    - database/migrations/2022_09_29_225312_create_items_table.php
+    - database/migrations/2022_09_29_225313_create_customers_table.php
+    - database/migrations/2022_09_29_225314_create_suppliers_table.php
+    - database/migrations/2022_09_29_225315_create_exports_table.php
+    - database/migrations/2022_09_29_225316_create_emports_table.php
+    - app/Models/Group.php
+    - app/Models/Item.php
+    - app/Models/Customer.php
+    - app/Models/Supplier.php
+    - app/Models/Export.php
+    - app/Models/Emport.php
+    - database/seeders/GroupSeeder.php
+    - database/seeders/ItemSeeder.php
+    - database/seeders/CustomerSeeder.php
+    - database/seeders/SupplierSeeder.php
+    - database/seeders/ExportSeeder.php
+    - database/seeders/EmportSeeder.php
+models:
+    Group: { name: string, relationships: { belongsTo: Item } }
+    Item: { name: string, code: string, min: integer, qty: integer, active: 'boolean default:1', image: string, group_id: 'id foreign:groups', timestamps: timestamps, relationships: { hasMany: Group } }
+    Customer: { name: string, phone: string, email: 'string:100 nullable index', block: 'boolean default:0', timestamps: timestamps }
+    Supplier: { name: string, phone: string, email: 'string:100 nullable index', block: 'boolean default:0', timestamps: timestamps }
+    Export: { item_id: 'id foreign:items', customer_id: 'id foreign:customers', timestamps: timestamps }
+    Emport: { item_id: 'id foreign:items', supplier_id: 'id foreign:suppliers', timestamps: timestamps }
