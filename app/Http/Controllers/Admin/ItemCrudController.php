@@ -39,10 +39,7 @@ class ItemCrudController extends CrudController
         if (!backpack_user()->can('mange item')) {
             CRUD::denyAccess('delete');
         }
-
-        if (!backpack_user()->can('change')) {
-            CRUD::denyAccess('change');
-        }
+     
     }
 
     /**
@@ -68,8 +65,9 @@ class ItemCrudController extends CrudController
             'model' => "App\Models\Group", // foreign key model
         ]);
 
-    
-        $this->crud->addButton('line', 'change', 'view', 'crud::buttons.change');
+        if (backpack_user()->can('change')) {
+            $this->crud->addButton('line', 'change', 'view', 'crud::buttons.change');
+        }
     }
 
     /**

@@ -27,6 +27,7 @@ class GroupRequest extends FormRequest
         return [
 
             'name' => ['required', 'unique:groups'],
+            'code' => 'required|min:5|max:255'
 
         ];
     }

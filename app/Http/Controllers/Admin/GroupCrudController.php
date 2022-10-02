@@ -40,6 +40,7 @@ class GroupCrudController extends CrudController
     protected function setupListOperation()
     {
         CRUD::column('name');
+        CRUD::column('code');
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -59,12 +60,9 @@ class GroupCrudController extends CrudController
         CRUD::setValidation(GroupRequest::class);
 
         CRUD::field('name');
+        CRUD::field('code');
 
-        /**
-         * Fields can be defined using the fluent syntax or array syntax:
-         * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number'])); 
-         */
+       
     }
 
     /**
