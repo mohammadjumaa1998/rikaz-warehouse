@@ -68,12 +68,7 @@ class ItemCrudController extends CrudController
             'model' => "App\Models\Group", // foreign key model
         ]);
 
-        //  $this->crud->removeButton('change');
-        // $this->crud->addButton('line', 'change', 'view', 'crud::buttons.change', 'end');
-        // CRUD::button('change')->view('crud::buttons.change');
-        //  if (backpack_user()->can('change')) {
-        //     $this->crud->addButton('line', 'change',  'view', 'vendor.backpack.crud.buttons.change', 'end');
-        // }
+    
         $this->crud->addButton('line', 'change', 'view', 'crud::buttons.change');
     }
 
