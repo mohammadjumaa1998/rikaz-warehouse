@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Export;
 use App\Models\Item;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -25,6 +26,14 @@ class AdminController extends Controller
      return  Item::with('getLastExport')->with('supplier')
      
      ->paginate(5, '*', 'items_with_sum_last_month');
+
+    }
+
+    public function topexport()
+    {
+   return Export::with('item')->orderBy('qty','DESC')
+     ->take(10)->get();
+
 
     }
     public function minimumitems()

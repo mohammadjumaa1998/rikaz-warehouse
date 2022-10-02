@@ -30,6 +30,14 @@ Widget::add([
         'minimumitems' => (new \App\Http\Controllers\Admin\AdminController())->minimumitems(),
     ],
 ]);
+
+Widget::add([
+    'type' => 'topexport',
+    'wrapper' => ['class' => ''],
+    'content' => [
+        'topexport' => (new \App\Http\Controllers\Admin\AdminController())->topexport(),
+    ],
+]);
 }
 @endphp
 

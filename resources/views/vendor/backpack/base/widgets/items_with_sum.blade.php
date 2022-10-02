@@ -4,7 +4,7 @@
     <div class="">
     <div class="">
         <div class="card">
-            <div class="card-header"><i class="fa fa-align-justify"></i>items_with_sum  </div>
+            <div class="card-header"><i class="fa fa-align-justify"></i>items with sum  </div>
             <div class="card-body">
                 <table class="table table-responsive-sm">
                     <thead>

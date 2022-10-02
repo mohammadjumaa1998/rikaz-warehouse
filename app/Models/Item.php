@@ -55,6 +55,7 @@ class Item extends Model
         ->withTimeStamps();
     }
 
+
     public function getLastExport()
     {
         return $this->belongsToMany(Customer::class,'exports','item_id','customer_id')

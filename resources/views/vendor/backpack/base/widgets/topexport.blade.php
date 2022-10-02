@@ -4,32 +4,31 @@
     <div class="">
         <div class="">
             <div class="card">
-                <div class="card-header"><i class="fa fa-align-justify"></i>Inactive Items </div>
+                <div class="card-header"><i class="fa fa-align-justify"></i>Top export </div>
                 <div class="card-body">
                     <table class="table table-responsive-sm">
                         <thead>
                             <tr>
                                 <th>Name</th>
                                 <th>Code</th>
-                                <th>Minimum</th>
-                                <th>Qty</th>
+                                <th>Qty Export</th>
+                                <th>Date Export</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($widget['content']['inactive_items'] as $item)
+                            @foreach ($widget['content']['topexport'] as $item)
 
                             <tr>
-                                <td>{{$item->name}}</td>
-                                <td>{{$item->code}}</td>
-                                <td>{{$item->min}}</td>
+                                <td>{{$item->item->name}}</td>
+                                <td>{{$item->item->code}}</td>
                                 <td>{{$item->qty}}</td>
+                                <td>{{date('Y-m-d',strtotime($item->date))}}</td>
                             </tr>
                             @endforeach
 
                         </tbody>
                     </table>
 
-                    {{$widget['content']['inactive_items']->appends(array_except(Request::query(), 'inactive_items'))->links();}}
 
                     <!-- /.col-->
                 </div>

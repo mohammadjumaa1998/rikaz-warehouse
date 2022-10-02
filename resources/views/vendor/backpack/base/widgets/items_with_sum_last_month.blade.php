@@ -4,7 +4,7 @@
     <div class="">
     <div class="">
         <div class="card">
-            <div class="card-header"><i class="fa fa-align-justify"></i>items_with_sum_last_month  </div>
+            <div class="card-header"><i class="fa fa-align-justify"></i>Items with sum last month  </div>
             <div class="card-body">
                 <table class="table table-responsive-sm">
                     <thead>
