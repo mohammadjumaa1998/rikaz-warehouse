@@ -48,7 +48,12 @@ class Item extends Model
     
     public function customer()
     {
-        return $this->belongsToMany(Customer::class);
+        return $this->belongsToMany(Customer::class,'exports','item_id','customer_id');
+    }
+
+    public function supplier()
+    {
+        return $this->belongsToMany(Supplier::class,'emports','item_id','supplier_id');
     }
 
 

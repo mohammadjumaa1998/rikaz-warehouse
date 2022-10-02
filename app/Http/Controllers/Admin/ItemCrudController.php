@@ -66,17 +66,15 @@ class ItemCrudController extends CrudController
             'entity' => 'group', // the method that defines the relationship in your Model
             'attribute' => "name", // foreign key attribute that is shown to user
             'model' => "App\Models\Group", // foreign key model
-         ]);
-         
+        ]);
+
         //  $this->crud->removeButton('change');
-// $this->crud->addButton('line', 'change', 'view', 'crud::buttons.change', 'end');
-// CRUD::button('change')->view('crud::buttons.change');
+        // $this->crud->addButton('line', 'change', 'view', 'crud::buttons.change', 'end');
+        // CRUD::button('change')->view('crud::buttons.change');
         //  if (backpack_user()->can('change')) {
         //     $this->crud->addButton('line', 'change',  'view', 'vendor.backpack.crud.buttons.change', 'end');
         // }
-        $this->crud->addButton('line', 'change','view', 'crud::buttons.change');
-
-        
+        $this->crud->addButton('line', 'change', 'view', 'crud::buttons.change');
     }
 
     /**
@@ -87,7 +85,7 @@ class ItemCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-      
+
         CRUD::setValidation(ItemRequest::class);
 
         CRUD::field('name');
@@ -101,11 +99,11 @@ class ItemCrudController extends CrudController
             'type' => 'upload',
             'upload' => true,
             'disk' => 'uploads'
-        ],'both');
+        ], 'both');
         // CRUD::field('image')->type('upload');
         CRUD::field('group_id');
 
-    
+
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:
@@ -122,13 +120,13 @@ class ItemCrudController extends CrudController
      */
     protected function setupUpdateOperation()
     {
-      
+
         $this->setupCreateOperation();
     }
 
     public function change($id)
     {
-     
+
 
         // get entry ID from Request (makes sure its the last ID for nested resources)
         $id = $this->crud->getCurrentEntryId() ?? $id;
@@ -142,6 +140,4 @@ class ItemCrudController extends CrudController
 
         return back();
     }
-
-   
 }
