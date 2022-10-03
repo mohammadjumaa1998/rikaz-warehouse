@@ -28,9 +28,9 @@ class ItemRequest extends FormRequest
 
             'name' => ['required', 'unique:items'],
             'code' => 'required|min:5|max:255',
-            'min' => 'required',
-            'qty' => 'required',
-            'price' => 'required',
+            'min' => 'required|integer',
+            'qty' => 'required|integer|min:0',
+            'price' => 'required|integer|min:0',
             'image' => 'nullable',
 
 
