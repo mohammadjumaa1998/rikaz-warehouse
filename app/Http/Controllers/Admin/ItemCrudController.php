@@ -29,7 +29,7 @@ class ItemCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Item::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/item');
-        CRUD::setEntityNameStrings('item', 'items');
+        CRUD::setEntityNameStrings(trans('item.item'), trans('item.items'));
         if (!backpack_user()->can('mange item')) {
             CRUD::denyAccess('create');
         }
@@ -50,14 +50,15 @@ class ItemCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('name');
-        CRUD::column('code');
-        CRUD::column('min');
-        CRUD::column('qty');
-        CRUD::column('active');
-        CRUD::column('image')->type('image');
+        CRUD::addColumn(['name' => 'name','label'  => trans('item.name')]);
+        CRUD::addColumn(['name' => 'code','label'  => trans('item.code')]);
+        CRUD::addColumn(['name' => 'min','label'  => trans('item.min')]);
+        CRUD::addColumn(['name' => 'qty','label'  => trans('item.qty')]);
+        CRUD::addColumn(['name' => 'price','label'  => trans('item.price')]);
+        CRUD::addColumn(['name' => 'active','label' => trans('item.active')]);
+        CRUD::addColumn(['name' => 'image','label'  => trans('item.image'),'type'  => 'image']);
         $this->crud->addColumn([
-            'label' => "Group", // Table column heading
+            'label' => trans('item.group'), // Table column heading
             'type' => "select",
             'name' => 'group_id', // the column that contains the ID of that connected entity;
             'entity' => 'group', // the method that defines the relationship in your Model
@@ -81,28 +82,21 @@ class ItemCrudController extends CrudController
 
         CRUD::setValidation(ItemRequest::class);
 
-        CRUD::field('name');
-        CRUD::field('code');
-        CRUD::field('min');
-        CRUD::field('qty');
-        CRUD::field('active');
+        CRUD::addField(['name' => 'group_id', 'label' => trans('item.group')]);
+        CRUD::addField(['name' => 'name', 'label' => trans('item.name')]);
+        CRUD::addField(['name' => 'code', 'label' => trans('item.code')]);
+        CRUD::addField(['name' => 'min', 'label' => trans('item.min')]);
+        CRUD::addField(['name' => 'qty', 'label' => trans('item.qty')]);
+        CRUD::addField(['name' => 'price', 'label' => trans('item.price')]);
+        CRUD::addField(['name' => 'active', 'label' => trans('item.active')]);
+        CRUD::addField(['name' => 'name', 'label' => trans('item.name')]);
         $this->crud->addField([ // image
-            'label' => "Image",
+            'label' => trans('item.image'),
             'name' => "image",
             'type' => 'upload',
             'upload' => true,
             'disk' => 'uploads'
         ], 'both');
-        // CRUD::field('image')->type('upload');
-        CRUD::field('group_id');
-
-
-
-        /**
-         * Fields can be defined using the fluent syntax or array syntax:
-         * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number'])); 
-         */
     }
 
     /**

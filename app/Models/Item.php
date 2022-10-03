@@ -56,12 +56,7 @@ class Item extends Model
     }
 
 
-    public function getLastExport()
-    {
-        return $this->belongsToMany(Customer::class,'exports','item_id','customer_id')
-        ->withPivot('qty','date')
-        ->where(DB::raw('MONTH(date)'), Carbon::now()->subMonth()->month);
-    }
+
 
     public function supplier()
     {

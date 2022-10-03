@@ -25,7 +25,7 @@
                             <td>{{$item->code}}</td>
                             <td>{{$item->min}}</td>
                             <td>{{$item->qty}}</td>
-                            <td>{{$item->getLastExport->sum('pivot.qty')}}</td>
+                            <td>{{$item->customer->sum('pivot.qty')}}</td>
                             <td>{{$item->supplier->sum('pivot.qty')}}</td>
                         </tr>
                         @endforeach
