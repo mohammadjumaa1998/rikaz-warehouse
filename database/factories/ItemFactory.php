@@ -28,6 +28,7 @@ class ItemFactory extends Factory
             'code' => $this->faker->word,
             'min' => $this->faker->numberBetween(-10000, 10000),
             'qty' => $this->faker->numberBetween(-10000, 10000),
+            'price' => $this->faker->numberBetween(1, 10000),
             'active' => $this->faker->boolean,
             'image' => $this->faker->word,
             'group_id' => Group::factory(),
