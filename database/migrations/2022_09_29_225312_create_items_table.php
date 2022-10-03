@@ -21,7 +21,6 @@ class CreateItemsTable extends Migration
             $table->string('code');
             $table->integer('min');
             $table->integer('qty');
-            $table->integer('price');
             $table->boolean('active')->default(1);
             $table->string('image')->nullable();
             $table->foreignId('group_id')->constrained('groups');

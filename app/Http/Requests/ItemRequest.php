@@ -28,9 +28,14 @@ class ItemRequest extends FormRequest
 
             'name' => ['required', 'unique:items'],
             'code' => 'required|min:5|max:255',
+<<<<<<< HEAD
             'min' => 'required|integer',
             'qty' => 'required|integer|min:0',
             'price' => 'required|integer|min:0',
+=======
+            'min' => 'required',
+            'qty' => 'required',
+>>>>>>> parent of c9bc4a4 (End Items Management)
             'image' => 'nullable',
 
 
