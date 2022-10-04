@@ -30,8 +30,8 @@ class DatabaseSeeder extends Seeder
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
         // create permissions
-        Permission::create(['name' => 'change']);
-        Permission::create(['name' => 'mange item']);
+        Permission::create(['name' => 'changeItemStatus']);
+        Permission::create(['name' => 'manageItem']);
 
 
         // create roles and assign created permissions

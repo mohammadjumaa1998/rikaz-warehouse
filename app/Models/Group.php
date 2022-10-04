@@ -17,6 +17,7 @@ class Group extends Model
      */
     protected $fillable = [
         'name',
+        'code',
     ];
 
     /**
@@ -30,6 +31,19 @@ class Group extends Model
 
     public function item()
     {
-        return $this->belongsTo(Item::class);
+        return $this->hasMany(Item::class);
+    }
+
+
+    protected static function boot()
+    {
+
+        parent::boot();
+
+        static::deleting(function ($group) {
+            if ($group->item->count() > 0) {
+                return false;
+            }
+        });
     }
 }

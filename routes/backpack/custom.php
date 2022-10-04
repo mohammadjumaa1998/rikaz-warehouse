@@ -22,7 +22,7 @@ Route::group([
     Route::crud('supplier', 'SupplierCrudController');
     Route::crud('export', 'ExportCrudController');
     Route::crud('emport', 'EmportCrudController');
-    Route::get('item/{id}/change', 'ItemCrudController@change');
+    Route::get('item/{id}/changeItemStatus', 'ItemCrudController@changeItemStatus')->can('changeItemStatus', Item::class);;
     Route::get('inactveitems', 'AdminController@inactveitems');
 
 }); // this should be the absolute last line of this file

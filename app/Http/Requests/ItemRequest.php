@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
+
 use Illuminate\Foundation\Http\FormRequest;
 
 class ItemRequest extends FormRequest
@@ -26,15 +28,13 @@ class ItemRequest extends FormRequest
     {
         return [
 
-            'name' => ['required', 'unique:items'],
+            'name' => ['required',  Rule::unique('items')->ignore($this->id)],
             'code' => 'required|min:5|max:255',
 
-            'min' => 'required|integer',
+            'min' => 'required|integer|min:0',
             'qty' => 'required|integer|min:0',
             'price' => 'required|integer|min:0',
 
-            'min' => 'required',
-            'qty' => 'required',
 
             'image' => 'nullable',
 
