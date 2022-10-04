@@ -110,7 +110,7 @@
                   <th data-orderable="false"
                       data-priority="{{ $crud->getActionsColumnPriority() }}"
                       data-visible-in-export="false"
-                      >{{ trans('backpack::crud.actions') }}</th>
+                      >{{ trans('item.actions') }}</th>
                 @endif
               </tr>
             </thead>

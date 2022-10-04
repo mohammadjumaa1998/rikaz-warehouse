@@ -25,6 +25,7 @@ class Item extends Model
         'code',
         'min',
         'qty',
+        'price',
         'active',
         'image',
         'group_id',
@@ -41,43 +42,47 @@ class Item extends Model
         'group_id' => 'integer',
     ];
 
-   
+
 
     public function group()
     {
         return $this->belongsTo(Group::class);
     }
-    
+
     public function customer()
     {
-        return $this->belongsToMany(Customer::class,'exports','item_id','customer_id')
-        ->withPivot('qty','date')
-        ->withTimeStamps();
+        return $this->belongsToMany(Customer::class, 'exports', 'item_id', 'customer_id')
+            ->withPivot('qty', 'date')
+            ->withTimeStamps();
     }
 
-
-    public function getLastExport()
-    {
-        return $this->belongsToMany(Customer::class,'exports','item_id','customer_id')
-        ->withPivot('qty','date')
-        ->where(DB::raw('MONTH(date)'), Carbon::now()->subMonth()->month);
-    }
 
     public function supplier()
     {
-        return $this->belongsToMany(Supplier::class,'emports','item_id','supplier_id')->withPivot('qty');
+        return $this->belongsToMany(Supplier::class, 'emports', 'item_id', 'supplier_id')->withPivot('qty');
     }
 
 
 
-public function setImageAttribute($value)
-{
-    $attribute_name = "image";
-    $disk = "uploads";
-    $destination_path = ""; //relative to $disk
-    $this->uploadFileToDisk($value, $attribute_name, $disk, $destination_path);
+    public function setImageAttribute($value)
+    {
+        $attribute_name = "image";
+        $disk = "uploads";
+        $destination_path = ""; //relative to $disk
+        $this->uploadFileToDisk($value, $attribute_name, $disk, $destination_path);
+    }
 
-}
 
-    
+    protected static function boot()
+    {
+
+        parent::boot();
+
+        static::deleting(function ($item) {
+
+            if ($item->customer->count() > 0 || $item->supplier->count() > 0) {
+                return false;
+            }
+        });
+    }
 }

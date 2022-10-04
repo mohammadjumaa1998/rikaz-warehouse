@@ -16,15 +16,19 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($widget['content']['topexport'] as $item)
 
+                            @foreach ($widget['content']['topexport'] as $top)
+                            @if ($top->item != null)
                             <tr>
-                                <td>{{$item->item->name}}</td>
-                                <td>{{$item->item->code}}</td>
-                                <td>{{$item->qty}}</td>
-                                <td>{{date('Y-m-d',strtotime($item->date))}}</td>
+                                <td>{{$top->item->name}}</td>
+                                <td>{{$top->item->code}}</td>
+                                <td>{{$top->qty}}</td>
+                                <td>{{date('Y-m-d',strtotime($top->date))}}</td>
                             </tr>
+                            @endif
+
                             @endforeach
+
 
                         </tbody>
                     </table>

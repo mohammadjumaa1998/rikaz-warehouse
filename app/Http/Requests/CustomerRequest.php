@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CustomerRequest extends FormRequest
 {
@@ -27,7 +28,8 @@ class CustomerRequest extends FormRequest
         return [
             'name' => 'required',
             'phone' => 'required|min:5|max:255',
-            'email' =>  ['required', 'string', 'email', 'max:255', 'unique:customers,email'],
+
+            'email' =>  ['required', 'string', 'email', 'max:255,'. Rule::unique('customers')->ignore($this->id).',email'],
         ];
     }
 
