@@ -28,7 +28,7 @@ class EmportCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Emport::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/emport');
-        CRUD::setEntityNameStrings('emport', 'emports');
+        CRUD::setEntityNameStrings(trans('emport.emport'), trans('emport.emports'));
     }
 
     /**
@@ -45,7 +45,7 @@ class EmportCrudController extends CrudController
             // any type of relationship
             'name'         => 'item_id', // name of relationship method in the model
             'type'         => 'select',
-            'label'        => 'Item', // Table column heading
+            'label'        => trans('emport.item'), // Table column heading
             // OPTIONAL
             'entity'    => 'item', // the method that defines the relationship in your Model
             'attribute' => 'name', // foreign key attribute that is shown to user
@@ -56,20 +56,15 @@ class EmportCrudController extends CrudController
             // any type of relationship
             'name'         => 'supplier_id', // name of relationship method in the model
             'type'         => 'select',
-            'label'        => 'Supplier', // Table column heading
+            'label'        => trans('emport.supplier'), // Table column heading
             // OPTIONAL
             'entity'    => 'supplier', // the method that defines the relationship in your Model
             'attribute' => 'name', // foreign key attribute that is shown to user
             'model'     => App\Models\Supplier::class, // foreign key model    
         ]);
+        CRUD::addColumn(['name' => 'qty','type'=>'number','label'  => trans('emport.qty')]);
+        CRUD::addColumn(['name' => 'date','type'=>'date','label'  => trans('emport.date')]);
 
-        CRUD::column('qty')->type('number');
-        CRUD::column('date')->type('date');
-        /**
-         * Columns can be defined using the fluent syntax or array syntax:
-         * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
-         */
     }
 
     /**
@@ -83,7 +78,7 @@ class EmportCrudController extends CrudController
         CRUD::setValidation(EmportRequest::class);
 
         $this->crud->addField([
-            'label'     => "Supplier",
+            'label'     => trans('emport.supplier'),
             'type'      => 'select',
             'name'      => 'supplier_id', // the method that defines the relationship in your Model
             'options'   => (function ($query) {
@@ -92,31 +87,54 @@ class EmportCrudController extends CrudController
 
         ]);
         $this->crud->addField([
-            'label'     => "Item",
+            'label'     => trans('emport.item'),
             'type'      => 'select',
             'name'      => 'item_id', // the method that defines the relationship in your Model
             'options'   => (function ($query) {
                 return $query->orderBy('name', 'ASC')->where('active', 1)->get();
             }),
         ]);
+        CRUD::addField(['name' => 'qty','label'  => trans('emport.qty')]);
 
-        CRUD::field('qty');
         $this->crud->addField([
             // Date
             'name'  => 'date',
-            'label' => 'Date',
+            'label' => trans('emport.date'),
             'type'  => 'date'
 
         ]);
 
-
-        /**
-         * Fields can be defined using the fluent syntax or array syntax:
-         * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number'])); 
-         */
     }
+    protected function setupShowOperation()
+    {
 
+
+        CRUD::addColumn([
+            // any type of relationship
+            'name'         => 'item_id', // name of relationship method in the model
+            'type'         => 'select',
+            'label'        => trans('emport.item'), // Table column heading
+            // OPTIONAL
+            'entity'    => 'item', // the method that defines the relationship in your Model
+            'attribute' => 'name', // foreign key attribute that is shown to user
+            'model'     => App\Models\Item::class, // foreign key model    
+        ]);
+
+        CRUD::addColumn([
+            // any type of relationship
+            'name'         => 'supplier_id', // name of relationship method in the model
+            'type'         => 'select',
+            'label'        => trans('emport.supplier'), // Table column heading
+            // OPTIONAL
+            'entity'    => 'supplier', // the method that defines the relationship in your Model
+            'attribute' => 'name', // foreign key attribute that is shown to user
+            'model'     => App\Models\Supplier::class, // foreign key model    
+        ]);
+        CRUD::addColumn(['name' => 'qty','type'=>'number','label'  => trans('emport.qty')]);
+        CRUD::addColumn(['name' => 'date','type'=>'date','label'  => trans('emport.date')]);
+
+
+    }
     /**
      * Define what happens when the Update operation is loaded.
      * 

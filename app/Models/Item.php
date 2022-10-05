@@ -59,7 +59,9 @@ class Item extends Model
 
     public function supplier()
     {
-        return $this->belongsToMany(Supplier::class, 'emports', 'item_id', 'supplier_id')->withPivot('qty');
+        return $this->belongsToMany(Supplier::class, 'emports', 'item_id', 'supplier_id')
+        ->withPivot('qty', 'date')
+        ->withTimeStamps();
     }
 
 

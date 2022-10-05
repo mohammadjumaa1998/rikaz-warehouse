@@ -28,7 +28,7 @@ class CustomerCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Customer::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/customer');
-        CRUD::setEntityNameStrings('customer', 'customers');
+        CRUD::setEntityNameStrings(trans('customer.customer'), trans('customer.customers'));
     }
 
     /**
@@ -39,16 +39,11 @@ class CustomerCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('name');
-        CRUD::column('phone');
-        CRUD::column('email');
-        CRUD::column('block');
+        CRUD::addColumn(['name' => 'name','label'  => trans('customer.name')]);
+        CRUD::addColumn(['name' => 'phone','label'  => trans('customer.phone')]);
+        CRUD::addColumn(['name' => 'email','label'  => trans('customer.email')]);
+        CRUD::addColumn(['name' => 'block','label'  => trans('customer.block')]);
 
-        /**
-         * Columns can be defined using the fluent syntax or array syntax:
-         * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
-         */
     }
 
     /**
@@ -60,19 +55,22 @@ class CustomerCrudController extends CrudController
     protected function setupCreateOperation()
     {
         CRUD::setValidation(CustomerRequest::class);
+        CRUD::addField(['name' => 'name','label'  => trans('customer.name')]);
+        CRUD::addField(['name' => 'phone','label'  => trans('customer.phone')]);
+        CRUD::addField(['name' => 'email','label'  => trans('customer.email')]);
+        CRUD::addField(['name' => 'block','label'  => trans('customer.block')]);
 
-        CRUD::field('name');
-        CRUD::field('phone');
-        CRUD::field('email');
-        CRUD::field('block');
-
-        /**
-         * Fields can be defined using the fluent syntax or array syntax:
-         * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number'])); 
-         */
     }
 
+    protected function setupShowOperation()
+    {
+        CRUD::addColumn(['name' => 'name','label'  => trans('customer.name')]);
+        CRUD::addColumn(['name' => 'phone','label'  => trans('customer.phone')]);
+        CRUD::addColumn(['name' => 'email','label'  => trans('customer.email')]);
+        CRUD::addColumn(['name' => 'block','label'  => trans('customer.block')]);
+
+
+    }
     /**
      * Define what happens when the Update operation is loaded.
      * 
