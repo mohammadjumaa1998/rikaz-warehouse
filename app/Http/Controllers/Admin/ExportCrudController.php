@@ -29,7 +29,8 @@ class ExportCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Export::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/export');
-        CRUD::setEntityNameStrings('export', 'exports');
+        CRUD::setEntityNameStrings(trans('export.export'), trans('export.exports'));
+
     }
 
     /**
@@ -46,7 +47,7 @@ class ExportCrudController extends CrudController
             // any type of relationship
             'name'         => 'item_id', // name of relationship method in the model
             'type'         => 'select',
-            'label'        => 'Item', // Table column heading
+            'label'        => trans('export.item'), // Table column heading
             // OPTIONAL
             'entity'    => 'item', // the method that defines the relationship in your Model
             'attribute' => 'name', // foreign key attribute that is shown to user
@@ -57,22 +58,47 @@ class ExportCrudController extends CrudController
             // any type of relationship
             'name'         => 'customer_id', // name of relationship method in the model
             'type'         => 'select',
-            'label'        => 'Customer', // Table column heading
+            'label'        => trans('export.customer'), // Table column heading
             // OPTIONAL
             'entity'    => 'customer', // the method that defines the relationship in your Model
             'attribute' => 'name', // foreign key attribute that is shown to user
             'model'     => App\Models\Customer::class, // foreign key model    
         ]);
 
-        CRUD::column('qty')->type('number');
-        CRUD::column('date')->type('date');
-        /**
-         * Columns can be defined using the fluent syntax or array syntax:
-         * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
-         */
-    }
+        CRUD::addColumn(['name' => 'qty','type'=>'number','label'  => trans('export.qty')]);
+        CRUD::addColumn(['name' => 'date','type'=>'date','label'  => trans('export.date')]);
 
+    }
+    protected function setupShowOperation()
+    {
+
+
+        CRUD::addColumn([
+            // any type of relationship
+            'name'         => 'item_id', // name of relationship method in the model
+            'type'         => 'select',
+            'label'        => trans('export.item'), // Table column heading
+            // OPTIONAL
+            'entity'    => 'item', // the method that defines the relationship in your Model
+            'attribute' => 'name', // foreign key attribute that is shown to user
+            'model'     => App\Models\Item::class, // foreign key model    
+        ]);
+
+        CRUD::addColumn([
+            // any type of relationship
+            'name'         => 'customer_id', // name of relationship method in the model
+            'type'         => 'select',
+            'label'        => trans('export.customer'), // Table column heading
+            // OPTIONAL
+            'entity'    => 'customer', // the method that defines the relationship in your Model
+            'attribute' => 'name', // foreign key attribute that is shown to user
+            'model'     => App\Models\Customer::class, // foreign key model    
+        ]);
+        CRUD::addColumn(['name' => 'qty','type'=>'number','label'  => trans('export.qty')]);
+        CRUD::addColumn(['name' => 'date','type'=>'date','label'  => trans('export.date')]);
+
+
+    }
     /**
      * Define what happens when the Create operation is loaded.
      * 
@@ -84,7 +110,7 @@ class ExportCrudController extends CrudController
         CRUD::setValidation(ExportRequest::class);
    
         $this->crud->addField([
-            'label'     => "Customer",
+            'label'     => trans('export.customer'),
             'type'      => 'select',
             'name'      => 'customer_id', // the method that defines the relationship in your Model
             'options'   => (function ($query) {
@@ -93,7 +119,7 @@ class ExportCrudController extends CrudController
         ]);
 
         $this->crud->addField([
-            'label'     => "Item",
+            'label'     => trans('export.item'),
             'type'      => 'select',
             'name'      => 'item_id', // the method that defines the relationship in your Model
             'options'   => (function ($query) {
@@ -101,11 +127,12 @@ class ExportCrudController extends CrudController
             }),
         ]);
 
-        CRUD::field('qty');
+        CRUD::addField(['name' => 'qty','label'  => trans('export.qty')]);
+
         $this->crud->addField([ // image
             // Date
             'name'  => 'date',
-            'label' => 'Date',
+            'label' => trans('export.date'),
             'type'  => 'date'
 
         ]);

@@ -64,7 +64,7 @@ class ItemCrudController extends CrudController
         ]);
 
         if (backpack_user()->can('changeItemStatus')) {
-            $this->crud->addButton('line', 'change', 'view', 'crud::buttons.change');
+            $this->crud->addButton('line', 'changeItemStatus', 'view', 'crud::buttons.changeItemStatus');
         }
     }
 
@@ -87,7 +87,7 @@ class ItemCrudController extends CrudController
         ]);
 
         if (backpack_user()->can('changeItemStatus')) {
-            $this->crud->addButton('line', 'change', 'view', 'crud::buttons.change');
+            $this->crud->addButton('line', 'changeItemStatus', 'view', 'crud::buttons.changeItemStatus');
         }
     }
 

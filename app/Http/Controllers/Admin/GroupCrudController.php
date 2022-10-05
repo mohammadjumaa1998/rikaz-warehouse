@@ -28,7 +28,8 @@ class GroupCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Group::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/group');
-        CRUD::setEntityNameStrings('group', 'groups');
+        CRUD::setEntityNameStrings(trans('group.group'), trans('group.groups'));
+
     }
 
     /**
@@ -39,14 +40,10 @@ class GroupCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('name');
-        CRUD::column('code');
+        CRUD::addColumn(['name' => 'name','label'  => trans('group.name')]);
+        CRUD::addColumn(['name' => 'code','label'  => trans('group.code')]);
 
-        /**
-         * Columns can be defined using the fluent syntax or array syntax:
-         * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
-         */
+
     }
 
     /**
@@ -59,12 +56,17 @@ class GroupCrudController extends CrudController
     {
         CRUD::setValidation(GroupRequest::class);
 
-        CRUD::field('name');
-        CRUD::field('code');
+        CRUD::addField(['name' => 'name','label'  => trans('group.name')]);
+        CRUD::addField(['name' => 'code','label'  =>trans('group.code')]);
 
        
     }
+    protected function setupShowOperation()
+    {
+        CRUD::addColumn(['name' => 'name','label'  => trans('group.name')]);
+        CRUD::addColumn(['name' => 'code','label'  =>trans('group.code')]);
 
+    }
     /**
      * Define what happens when the Update operation is loaded.
      * 

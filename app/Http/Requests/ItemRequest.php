@@ -32,11 +32,11 @@ class ItemRequest extends FormRequest
             'code' => 'required|min:5|max:255',
 
             'min' => 'required|integer|min:0',
-            'qty' => 'required|integer|min:0',
+            'qty' => 'required|integer',
             'price' => 'required|integer|min:0',
 
 
-            'image' => 'nullable',
+            'image' => 'nullable|mimes:jpeg,png,jpg,gif',
 
 
         ];
