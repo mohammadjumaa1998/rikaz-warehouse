@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Customer;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -28,7 +29,7 @@ class CustomerRequest extends FormRequest
         return [
             'name' => 'required',
             'phone' => 'required|min:5|max:255',
-
+            "password" => ['required', 'string'],
             'email' =>  ['required', 'string', 'email', 'max:255,'. Rule::unique('customers')->ignore($this->id).',email'],
         ];
     }
@@ -53,7 +54,7 @@ class CustomerRequest extends FormRequest
     public function messages()
     {
         return [
-            //
+          //
         ];
     }
 }

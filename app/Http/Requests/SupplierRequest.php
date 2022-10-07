@@ -28,8 +28,8 @@ class SupplierRequest extends FormRequest
         return [
             'name' => 'required',
             'phone' => 'required|min:5|max:255',
+            "password" => ['required', 'string'],
             'email' =>  ['required', 'string', 'email', 'max:255,'. Rule::unique('suppliers')->ignore($this->id).',email'],
-
         ];
     }
 

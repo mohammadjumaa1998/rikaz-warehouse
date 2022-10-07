@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,10 +18,11 @@ class CreateCustomersTable extends Migration
 
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
             $table->string('phone');
-            $table->string('email', 100)->nullable()->index();
+            $table->string('password');
             $table->boolean('block')->default(0);
+            $table->foreignIdFor(User::class)->constrained('users')->cascadeOnDelete();
+
             $table->timestamps();
         });
 
