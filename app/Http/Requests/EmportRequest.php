@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Item;
 use Illuminate\Foundation\Http\FormRequest;
 
 class EmportRequest extends FormRequest
@@ -53,5 +54,18 @@ class EmportRequest extends FormRequest
         return [
             //
         ];
+    }
+
+    public function withValidator($validator)
+    {
+        if (!$validator->fails()) {
+            $validator->after(function ($validator) {
+                if ($request = $this->input()) {
+                    $q = Item::where('id', $request["item_id"])->first();
+                        $q->update(['qty' => $q->qty + $request["qty"]]);
+                    
+                }
+            });
+        }
     }
 }

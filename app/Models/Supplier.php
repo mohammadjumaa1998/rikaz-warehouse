@@ -20,6 +20,8 @@ class Supplier extends Model
         'phone',
         'email',
         'block',
+        'password',
+        'user_id',
     ];
 
     /**
@@ -32,5 +34,8 @@ class Supplier extends Model
         'block' => 'boolean',
     ];
 
-   
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

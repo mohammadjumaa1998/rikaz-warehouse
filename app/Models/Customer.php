@@ -20,6 +20,8 @@ class Customer extends Model
         'phone',
         'email',
         'block',
+        'password',
+        'user_id',
     ];
 
     /**
@@ -36,4 +38,11 @@ class Customer extends Model
     {
         return $this->belongsToMany(Item::class);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    
+
 }

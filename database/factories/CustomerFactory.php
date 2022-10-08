@@ -5,6 +5,8 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use App\Models\Customer;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class CustomerFactory extends Factory
 {
@@ -23,10 +25,11 @@ class CustomerFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name,
             'phone' => $this->faker->phoneNumber,
-            'email' => $this->faker->safeEmail,
             'block' => $this->faker->boolean,
+            'password' => Hash::make('12345678'),
+            'user_id' =>$this->faker->unique()->numberBetween(1, 15)
+
         ];
     }
 }
